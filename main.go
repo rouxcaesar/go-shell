@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+  "errors"
 	"os"
 	"os/exec"
 	"strings"
@@ -31,6 +32,20 @@ func execInput(input string) error {
 
 	// Split the input to separate the command and the arguments.
 	args := strings.Split(input, " ")
+	fmt.Println(args)
+
+	// Check for built-in commands.
+	switch args[0] {
+	case "cd":
+		// 'cd' to home dir with empty path not yet supported.
+		if len(args) < 2 {
+			return errors.New("path required")
+		}
+		// Change the directory and return the error.
+		return os.Chdir(args[1])
+	case "exit":
+		os.Exit(0)
+	}
 
 	// Pass the program and arguments separately.
 	cmd := exec.Command(args[0], args[1:]...)
