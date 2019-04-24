@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
-  "errors"
+  //"errors"
 	"os"
 	"os/exec"
 	"strings"
@@ -12,6 +12,7 @@ import (
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 	for {
+    // Modify the line below to include the current directory
 		fmt.Print("> ")
 		// Read the keyboard input.
 		input, err := reader.ReadString('\n')
@@ -39,7 +40,8 @@ func execInput(input string) error {
 	case "cd":
 		// 'cd' to home dir with empty path not yet supported.
 		if len(args) < 2 {
-			return errors.New("path required")
+			// return errors.New("path required")
+      args = append(args, "/")
 		}
 		// Change the directory and return the error.
 		return os.Chdir(args[1])
